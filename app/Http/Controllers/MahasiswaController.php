@@ -14,8 +14,13 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
+        /*
+        if(!session('statuslogin')){
+            return redirect('/');
+        }
+        */
         $datamahasiswa = Mahasiswa::get(); // compact($var);
-        return view('viewmahasiswa', ['datamahasiswa'=>$datamahasiswa]);
+        return view('viewmahasiswa', ['datamahasiswa'=>$datamahasiswa, 'username'=>session('username')]);
     }
 
     /**
@@ -59,7 +64,7 @@ class MahasiswaController extends Controller
             'hp' => $request->hp,
             
         ]);
-*/
+        */
         $mahasiswa = new mahasiswa;
         $mahasiswa::create($request->all());
 
@@ -77,6 +82,61 @@ class MahasiswaController extends Controller
     public function show(mahasiswa $mahasiswa)
     {
         return view('viewdetailmahasiswa', ['mahasiswa'=>$mahasiswa]);
+    }
+
+
+    public function printout($param1, $param2=20){
+        echo "Nilai 1 adalah $param1 <br>";
+        if(isset($param2)){
+            echo "Nilai 2 adalah $param2";
+        }
+
+        //redirect()->route('belajar');
+
+    }
+
+
+    public function lihat(){
+        echo "Masuk Get dan Post";
+    }
+
+
+    public function belajar(){
+        echo Route("belajar");
+    }
+
+    public function getall(mahasiswa $mahasiswa)
+    {
+        //dump(mahasiswa::where("nim", "2520")->first());
+        //dump(mahasiswa::find(100))->first();
+
+        dump(mahasiswa::onlyTrashed()->get());
+        //dump(mahasiswa::find(3));
+
+    }
+
+
+    public function updatedata(mahasiswa $mahasiswa)
+    {
+        //dump(mahasiswa::where("nim", "2520")->first());
+        $mahasiswa = mahasiswa::find(1);
+        $mahasiswa->nama = "Tommy Tanto";
+        $mahasiswa->save();
+
+        //dump(mahasiswa::all());
+        //dump(mahasiswa::find(3));
+
+    }
+
+    public function deletedata(mahasiswa $mahasiswa)
+    {
+        //dump(mahasiswa::where("nim", "2520")->first());
+        $mahasiswa = mahasiswa::find(1);
+        $mahasiswa->delete();
+
+        //dump(mahasiswa::all());
+        //dump(mahasiswa::find(3));
+
     }
 
     /**

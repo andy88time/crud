@@ -16,7 +16,7 @@
 				<h3 class="fontmerah">Data Kampus</h3>
 
 				<div class="form-group">
-					
+					Hello, {{ $username }} <a href="/logout">Logout</a>
 				</div>
 
 				<p align="right">
